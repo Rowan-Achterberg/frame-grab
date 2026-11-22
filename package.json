@@ -1,0 +1,14 @@
+{
+  "name": "framegrab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "从视频中抽取任意一帧并保存为图片",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

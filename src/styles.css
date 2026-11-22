@@ -1,0 +1,253 @@
+/* Windows 11 Fluent tokens — light by default, dark follows the system */
+:root {
+  --bg: #f3f3f3;
+  --layer: rgba(255, 255, 255, 0.7);
+  --stroke: rgba(0, 0, 0, 0.073);
+  --stroke-strong: rgba(0, 0, 0, 0.16);
+  --text: rgba(0, 0, 0, 0.9);
+  --text-2: rgba(0, 0, 0, 0.61);
+  --text-3: rgba(0, 0, 0, 0.45);
+  --ctl: rgba(255, 255, 255, 0.7);
+  --ctl-hover: rgba(249, 249, 249, 0.5);
+  --ctl-press: rgba(249, 249, 249, 0.3);
+  --subtle-hover: rgba(0, 0, 0, 0.037);
+  --subtle-press: rgba(0, 0, 0, 0.024);
+  --accent: #005fb8;
+  --accent-hover: #1a6fc0;
+  --accent-press: #337fc7;
+  --on-accent: #fff;
+  --track: rgba(0, 0, 0, 0.45);
+  --stage: #1c1c1c;
+  --toast: #fbfbfb;
+  --ok: #0f7b0f;
+  --err: #c42b1c;
+  --shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202020;
+    --layer: rgba(255, 255, 255, 0.051);
+    --stroke: rgba(255, 255, 255, 0.07);
+    --stroke-strong: rgba(255, 255, 255, 0.16);
+    --text: #fff;
+    --text-2: rgba(255, 255, 255, 0.79);
+    --text-3: rgba(255, 255, 255, 0.54);
+    --ctl: rgba(255, 255, 255, 0.061);
+    --ctl-hover: rgba(255, 255, 255, 0.084);
+    --ctl-press: rgba(255, 255, 255, 0.033);
+    --subtle-hover: rgba(255, 255, 255, 0.061);
+    --subtle-press: rgba(255, 255, 255, 0.042);
+    --accent: #60cdff;
+    --accent-hover: #5abfee;
+    --accent-press: #54b1dc;
+    --on-accent: #000;
+    --track: rgba(255, 255, 255, 0.54);
+    --stage: #141414;
+    --toast: #2c2c2c;
+    --ok: #6ccb5f;
+    --err: #ff99a4;
+    --shadow: 0 8px 16px rgba(0, 0, 0, 0.26);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/20px "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+[hidden] { display: none !important; }
+svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+svg .fill { fill: currentColor; stroke-width: 1; }
+
+/* ── Command bar ─────────────────────────────── */
+.bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+}
+.filename {
+  flex: 1; min-width: 0;
+  padding: 0 8px;
+  color: var(--text-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 32px; padding: 0 12px;
+  font: inherit; color: var(--text);
+  background: var(--ctl);
+  border: 1px solid var(--stroke);
+  border-bottom-color: var(--stroke-strong);
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background .083s;
+}
+.btn:hover { background: var(--ctl-hover); }
+.btn:active { background: var(--ctl-press); color: var(--text-2); border-bottom-color: var(--stroke); }
+.btn.accent {
+  background: var(--accent); color: var(--on-accent);
+  border-color: transparent; font-weight: 600;
+}
+.btn.accent:hover { background: var(--accent-hover); }
+.btn.accent:active { background: var(--accent-press); }
+.btn:disabled, .icon:disabled { opacity: .38; pointer-events: none; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }
+
+/* Segmented PNG / JPG */
+.seg {
+  display: inline-flex; padding: 2px; gap: 2px; height: 32px;
+  background: var(--ctl); border: 1px solid var(--stroke); border-radius: 4px;
+}
+.seg button {
+  position: relative;
+  font: inherit; font-size: 12px; color: var(--text-2);
+  padding: 0 12px; border: 0; background: transparent; border-radius: 3px;
+}
+.seg button:hover { background: var(--subtle-hover); }
+.seg button[aria-checked="true"] { color: var(--text); background: var(--subtle-hover); font-weight: 600; }
+.seg button[aria-checked="true"]::after {
+  content: ""; position: absolute; left: 50%; bottom: 1px;
+  width: 16px; height: 3px; margin-left: -8px; border-radius: 2px;
+  background: var(--accent);
+}
+
+/* ── Stage ───────────────────────────────────── */
+.stage {
+  position: relative; min-height: 0;
+  margin: 0 16px;
+  background: var(--stage);
+  border: 1px solid var(--stroke);
+  border-radius: 8px;
+  overflow: hidden;
+}
+video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.empty {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  color: rgba(255, 255, 255, 0.79);
+}
+.empty-icon { width: 48px; height: 48px; stroke-width: 1.5; margin-bottom: 12px; color: rgba(255, 255, 255, 0.45); }
+.empty-title { font: 600 20px/28px "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", sans-serif; color: #fff; }
+.empty-sub { font-size: 14px; color: rgba(255, 255, 255, 0.54); }
+.has-video .empty { display: none; }
+
+.dropmask {
+  position: absolute; inset: 8px; display: none;
+  align-items: center; justify-content: center;
+  border: 2px dashed var(--accent); border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6); color: #fff; font-weight: 600;
+}
+.dragging .dropmask { display: flex; }
+
+/* ── Bottom deck ─────────────────────────────── */
+.deck { padding: 10px 16px 12px; }
+.scrub { height: 24px; display: flex; align-items: center; }
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 24px; margin: 0; background: transparent;
+  --p: 0%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--track) var(--p));
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px; margin-top: -8px; border-radius: 50%;
+  background: var(--accent);
+  border: 5px solid var(--toast);
+  box-shadow: 0 0 0 1px var(--stroke-strong);
+  transition: border-width .12s;
+}
+input[type=range]:hover::-webkit-slider-thumb { border-width: 4px; }
+input[type=range]:active::-webkit-slider-thumb { border-width: 6px; }
+input[type=range]:disabled { opacity: .38; }
+
+.transport {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  margin-top: 4px;
+}
+.tc { display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+.tc-input {
+  width: 116px; height: 32px; padding: 0 10px;
+  font: inherit; font-variant-numeric: tabular-nums; color: var(--text);
+  background: var(--ctl);
+  border: 1px solid var(--stroke); border-bottom-color: var(--track);
+  border-radius: 4px; outline: none;
+  user-select: text; -webkit-user-select: text; cursor: text;
+}
+.tc-input:focus { background: var(--bg); border-bottom: 2px solid var(--accent); }
+.tc-input:disabled { opacity: .38; }
+.tc-dur { color: var(--text-3); white-space: nowrap; }
+
+.keys { display: flex; align-items: center; gap: 4px; }
+.icon {
+  display: grid; place-items: center;
+  width: 36px; height: 36px; padding: 0;
+  color: var(--text); background: transparent; border: 0; border-radius: 4px;
+  transition: background .083s;
+}
+.icon:hover { background: var(--subtle-hover); }
+.icon:active { background: var(--subtle-press); color: var(--text-2); }
+.icon.big { width: 44px; height: 44px; border-radius: 22px; }
+.icon.big svg { width: 20px; height: 20px; }
+
+.meta {
+  justify-self: end; text-align: right;
+  font-size: 12px; line-height: 16px; color: var(--text-3);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+/* ── InfoBar toast ───────────────────────────── */
+.toast {
+  position: fixed; left: 50%; bottom: 112px;
+  transform: translate(-50%, 8px);
+  display: flex; align-items: center; gap: 10px;
+  max-width: min(640px, calc(100vw - 48px));
+  padding: 10px 14px;
+  background: var(--toast);
+  border: 1px solid var(--stroke); border-radius: 6px;
+  box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none;
+  transition: opacity .167s, transform .167s cubic-bezier(0, 0, 0, 1);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast-ico { color: var(--ok); }
+.toast.error .toast-ico { color: var(--err); }
+.toast.error .toast-ico path { d: path("M8 4.500v4M8 11v.2"); }
+#toastText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.link {
+  font: inherit; color: var(--accent); background: none; border: 0; padding: 2px 4px; border-radius: 4px;
+  white-space: nowrap; cursor: pointer;
+}
+.link:hover { background: var(--subtle-hover); }
+
+/* Tooltip */
+[data-tip] { position: relative; }
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; z-index: 5; left: 50%; transform: translateX(-50%);
+  padding: 4px 8px; white-space: nowrap;
+  font: 400 12px/16px "Segoe UI Variable Small", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  color: var(--text); background: var(--toast);
+  border: 1px solid var(--stroke); border-radius: 4px; box-shadow: var(--shadow);
+  opacity: 0; animation: tip .1s .6s forwards; pointer-events: none;
+}
+.bar [data-tip]:hover::after { top: calc(100% + 6px); }
+.deck [data-tip]:hover::after { bottom: calc(100% + 6px); }
+.bar .accent[data-tip]:hover::after { left: auto; right: 0; transform: none; }
+@keyframes tip { to { opacity: 1; } }
+
+@media (max-width: 860px) {
+  .btn span { display: none; }
+  .btn.accent span { display: inline; }
+}
