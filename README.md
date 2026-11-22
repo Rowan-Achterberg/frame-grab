@@ -39,4 +39,4 @@ npm run dev      # 调试
 npm run build    # 生成安装包
 ```
 
-推送 `v*` 标签后，GitHub Actions 会构建两种架构的安装包并发布到 Releases。
+每次推送到 `main`，GitHub Actions 会构建两种架构的安装包，并发布到与 `src-tauri/tauri.conf.json` 中版本号对应的 Release。发新版本时改版本号再推送即可。
